@@ -146,4 +146,4 @@ Shane Taylor \
 925 785-2722 \
 shane.taylor@gmail.com
 
-https://github.com/offrock/serviceclient
+https://github.com/offrock/serviceclient#readme
