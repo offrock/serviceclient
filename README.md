@@ -136,7 +136,7 @@ Consider what the Service Client is doing for us in this scenario
 * Cross service sort - Since the sort involves both appointment and customer attributes, the Service Client must employ a look ahead algorithm with in-memory sorting. Scenarios such as this are one reason why the Service Client provides its own sorting syntax.
 * Pagination - Since appointments are filtered by the Service Client, it must extend forward and maintain a second hidden offset. Scenarios such as this are one reason why the Service Client provides its own pagination syntax.
 * Housekeeping - Various concerns such as configuration, versioning, authentication, logging, etc., can all be centralized within the Service Client.
-* Testing - Local reference implementation with test data sets which can be used for development and unit testing.
+* Testing - Local reference implementations with test data sets which can be used for development and unit testing.
 
 It should be noted that all functionally (beyond an adapter function for each endpoint) is generalized and can be applied to any scenario without any use case specific development.
 
