@@ -108,8 +108,8 @@ let page = await AppointmentService.getAppointments({
    },
    $sort: [ 
       {scheduledDate: '$asc'}, // scheduledDate
-      {customer: {lastName: '$asc'}}, // then customer name
-      {customer: {firstName: '$asc'}},
+      {customer: {lastName: {$ignoreCase: '$asc'}}}, // then customer name
+      {customer: {firstName: {$ignoreCase: '$asc'}}},
       {appointmentId: '$asc'}
    ],
    $paginate: {$limit: 10} // 10 at a time
