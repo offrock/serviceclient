@@ -1,26 +1,26 @@
 Ideally for java we would like a syntax which reads well and allows single statement calls, but is still mostly type safe. 
 (When trying to represent a generalized syntax, java frameworks are typcially rather clunky)
-One possible approach is usage of auto generated 'Shape' objects which have attributes/methods which follow the object model.
-This would allow something like (given appointment and customer Shape objects)
+One possible approach is usage of auto generated attribute data and helper funtions which follow the object model.
+This would allow something like
 
 ```java
-AppointmentService.getAppointments(builder -> builder
+Page<Appointment> appointments = AppointmentService.getAppointments(AppointmentService.getAppointments
    .params.locationId(locationId)
    .params.fromDate(fromDate)
    .filter(
-      appointment.status.in("SCHEDULED", "CONFIRMED") // only SCHEDULED or CONFIRMED
+      Appointment.attributes.status.in("SCHEDULED", "CONFIRMED") // only SCHEDULED or CONFIRMED
    )
    .append(
-      Append.as("customer", CustomerService.givenAppointments.getCustomer()), // append customer
-      Append.as("associate", AssociateService.givenAppointments.getAssociate()) // append associate
+      Customer.as("customer", CustomerService.givenAppointments.getCustomer()), // append customer
+      Associate.as("associate", AssociateService.givenAppointments.getAssociate()) // append associate
    )
    .sort(
-      appointment.scheduledDate.asc, // scheduledDate
-      Sort.on("customer",
-         customer.lastName.asc, // then customer name
-         customer.firstName.asc
+      Appointment.attributes.scheduledDate.asc, // scheduledDate
+      Customer.on("customer",
+         Customer.attributes.lastName.ignoreCase.asc, // then customer name
+      	Customer.attributes.firstName.ignoreCase.asc
       ),
-      appointment.appointmentId.asc
+      Appointment.attributes.appointmentId.asc
    )
    .paginate(10) // 10 at a time
 );
