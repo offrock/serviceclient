@@ -18,7 +18,7 @@ Page<Appointment> appointments = AppointmentService.getAppointments(AppointmentS
       Appointment.attributes.scheduledDate.asc, // scheduledDate
       Customer.on("customer",
          Customer.attributes.lastName.ignoreCase.asc, // then customer name
-      	Customer.attributes.firstName.ignoreCase.asc
+         Customer.attributes.firstName.ignoreCase.asc
       ),
       Appointment.attributes.appointmentId.asc
    )
