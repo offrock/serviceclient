@@ -8,19 +8,19 @@ Page<Appointment> appointments = AppointmentService.getAppointments(AppointmentS
    .params.locationId(locationId)
    .params.fromDate(fromDate)
    .filter(
-      Appointment.attributes.status.in("SCHEDULED", "CONFIRMED") // only SCHEDULED or CONFIRMED
+      Appointment.shape.status.in("SCHEDULED", "CONFIRMED") // only SCHEDULED or CONFIRMED
    )
    .append(
       Customer.as("customer", CustomerService.givenAppointments.getCustomer()), // append customer
       Associate.as("associate", AssociateService.givenAppointments.getAssociate()) // append associate
    )
    .sort(
-      Appointment.attributes.scheduledDate.asc, // scheduledDate
+      Appointment.shape.scheduledDate.asc, // scheduledDate
       Customer.on("customer",
-         Customer.attributes.lastName.ignoreCase.asc, // then customer name
-         Customer.attributes.firstName.ignoreCase.asc
+         Customer.shape.lastName.ignoreCase.asc, // then customer name
+         Customer.shape.firstName.ignoreCase.asc
       ),
-      Appointment.attributes.appointmentId.asc
+      Appointment.shape.appointmentId.asc
    )
    .paginate(10) // 10 at a time
 );
