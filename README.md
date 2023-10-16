@@ -98,7 +98,7 @@ We could of course make a series of api calls from the browser and work all this
 ```javascript
 let page = await AppointmentService.getAppointments({
    locationId,
-   fromDate: moment().tz(timezone).startOf('day'), // from today
+   fromDate: {$startOfDay: timezone}, // from today
    $filter: {
       status: {$in: ['SCHEDULED', 'CONFIRMED']} // only SCHEDULED or CONFIRMED
    },
@@ -129,7 +129,7 @@ Consider what the Service Client is doing for us in this scenario
 
 * Simplified interaction - REST/HTTP semantics and syntax (urls, headers, body, response codes, etc.) are replaced with simple function calls.
 * Single request - The full request is transparently serialized (potentially batched with other requests) and sent to a Service Client running in the backend for more efficient execution. 
-* Parameter transformation - The fromDate parameter accepts various types that are transparently transformed into the required string format. Parameter names can also be aliased for naming consistency across services.
+* Parameter transformation - The fromDate parameter accepts various types (timestamp, Date, moment, etc., as well as various convenience options as shown above) that are transparently transformed into the required string format. Parameter names can also be aliased for naming consistency across services.
 * Filter - Since the appointment service endpoint does not currently support search by status, appointments are filtered using the Service Client’s $filter after effect which provides generalized object filtering.
 * Append related entities - The customer and sales associate are appended to each appointment. The Service Client can take advantage of batch endpoints where available. Attribute level and relationship projections are also supported.
 * Dedup and cache - Duplicate customers and sales associates can be transparently deduped over the wire. Since the number of sales associates at a given location is relatively small, sales associates could be configured to cache and append client side. 
